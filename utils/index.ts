@@ -1,5 +1,5 @@
 import { DUMMY_EVENTS } from "../dummy-data";
-import { DateFilter } from "./types";
+import { DateFilterType } from "./types";
 
 export function getFeaturedEvents() {
   return DUMMY_EVENTS.filter((event) => event.isFeatured);
@@ -9,7 +9,7 @@ export function getAllEvents() {
   return DUMMY_EVENTS;
 }
 
-export function getFilteredEvents(dateFilter: DateFilter) {
+export function getFilteredEvents(dateFilter: DateFilterType) {
   const { year, month } = dateFilter;
 
   let filteredEvents = DUMMY_EVENTS.filter((event) => {
@@ -24,3 +24,13 @@ export function getFilteredEvents(dateFilter: DateFilter) {
 export function getEventById(id: string) {
   return DUMMY_EVENTS.find((event) => event.id === id);
 }
+
+export const humanReadableDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+export const formattedAddress = (address: string) =>
+  address.replace(", ", "\n");

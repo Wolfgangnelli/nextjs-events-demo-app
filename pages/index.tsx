@@ -1,10 +1,16 @@
 import React from "react";
-import HomeTemplate from "../components/templates/HomeTemplate/HomeTemplate";
+import { HomeTemplate, ListingEventiTemplate } from "../components/templates";
+import { getFeaturedEvents } from "../utils";
 
-const HomePage = () => (
-  <HomeTemplate>
-    <h1>The Home Page</h1>
-  </HomeTemplate>
-);
+const HomePage = () => {
+  const featuredEvents = getFeaturedEvents();
+
+  return (
+    <HomeTemplate>
+      <h1>The Home Page</h1>
+      <ListingEventiTemplate events={featuredEvents} />
+    </HomeTemplate>
+  );
+};
 
 export default HomePage;
