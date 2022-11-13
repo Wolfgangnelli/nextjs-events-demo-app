@@ -6,14 +6,17 @@ interface Props {
   alt?: string;
   title?: string;
   className?: string;
-  maxWidth: number;
-  maxHeight: number;
+  maxWidth?: number;
+  maxHeight?: number;
   layout?: "fixed" | "fill" | "intrinsic" | "responsive";
   objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
   objectPosition?: string;
   priority?: false | true;
   loading?: "lazy" | "eager";
   quality?: number;
+  style?: any;
+  sizes?: string;
+  fill?: any;
 }
 
 const SImage = (props: Props) => {

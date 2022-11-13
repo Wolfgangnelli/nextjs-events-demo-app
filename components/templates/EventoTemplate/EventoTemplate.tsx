@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { DummyEventType } from "../../../utils/types";
 import { humanReadableDate, formattedAddress } from "../../../utils";
-import { SImage } from "../../atoms";
+import { SImage, Button, Calendar, Location, ArrowRight } from "../../atoms";
 import styles from "./EventoTemplate.module.sass";
 
 interface Props {
@@ -14,34 +14,34 @@ const EventoTemplate = (props: Props) => {
   const { evento } = props;
 
   return (
-    <li className={styles.listItem}>
-      <SImage
-        src={`/${evento.image}`}
-        maxWidth={767}
-        maxHeight={638}
-        layout="intrinsic"
-        objectFit="cover"
-        quality={100}
-      />
-      <div>
-        <div>
-          {!!evento.title && <h2>{evento.title}</h2>}
-          {!!evento.description && (
-            <div dangerouslySetInnerHTML={{ __html: evento.description }} />
-          )}
+    <li className={styles.item}>
+      <SImage src={`/${evento.image}`} style={styles.image} />
+      <div className={styles.content}>
+        <div className={styles.summary}>
+          {!!evento.title && <h2 className={styles.title}>{evento.title}</h2>}
           {!!evento.date && (
-            <div>
+            <div className={styles.date}>
+              <span className="icon">
+                <Calendar />
+              </span>
               <time>{humanReadableDate(evento.date)}</time>
             </div>
           )}
           {!!evento.location && (
-            <div>
+            <div className={styles.address}>
+              <span className="icon">
+                <Location />
+              </span>
               <address>{formattedAddress(evento.location)}</address>
             </div>
           )}
         </div>
-        <div>
-          <Link href={`/events/${evento.id}`}>Explore Event</Link>
+        <div className={styles.actions}>
+          <Button
+            label="Explore Event"
+            href={`/events/${evento.id}`}
+            icon={<ArrowRight />}
+          />
         </div>
       </div>
     </li>
