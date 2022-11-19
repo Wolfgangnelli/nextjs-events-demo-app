@@ -30,3 +30,11 @@ export const DUMMY_EVENTS = [
     isFeatured: true,
   },
 ];
+
+export const NAV_ITEMS = [
+  {
+    id: "1",
+    label: "All Events",
+    href: "/events",
+  },
+];
