@@ -13,3 +13,11 @@ export type DummyEventType = {
   image: string;
   isFeatured: boolean;
 };
+
+export type NavItems = {
+  id: string;
+  label: string;
+  href?: string;
+  url?: string;
+  icon?: string;
+};
