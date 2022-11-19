@@ -21,3 +21,12 @@ export type NavItems = {
   url?: string;
   icon?: string;
 };
+
+export type MonthOptions = {
+  label: string;
+  value: string;
+};
+
+export type GenericObj = {
+  [key: string]: string | number;
+};
