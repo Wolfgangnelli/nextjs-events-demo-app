@@ -1,6 +1,7 @@
 import React from "react";
-import { Calendar, SImage } from "../../atoms";
+import { Calendar, SImage, Location } from "../../atoms";
 import { humanReadableDate, formattedAddress } from "../../../utils";
+import LogisticsItem from '../LogisticsItem/LogisticsItem'
 import styles from "./EventLogistics.module.sass";
 
 interface Props {
@@ -18,6 +19,18 @@ const EventLogistics = (props: Props) => {
       <div>
         <SImage src={image} alt={imageAlt} />
       </div>
+      <ul>
+        {!!date.length && (
+        <LogisticsItem icon={<Calendar />}>
+          <time>{humanReadableDate(date)}</time>
+        </LogisticsItem>
+        )}
+        {!!address.length && (
+          <LogisticsItem icon={<Location />}>
+          <address>{formattedAddress(address)}</address>
+        </LogisticsItem>
+        )}
+      </ul>
     </section>
   );
 };
