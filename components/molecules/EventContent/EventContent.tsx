@@ -2,14 +2,19 @@ import React from "react";
 import styles from "./EventContent.module.sass";
 
 interface Props {
-  text: string;
+  description: string;
   children?: React.ReactNode;
 }
 
 const EventContent = (props: Props) => {
-  const { text = "", children = undefined } = props;
+  const { description = "", children = undefined } = props;
 
-  return <section className={styles.content}>{children}</section>;
+  return (
+    <section className={styles.content}>
+      <p className={styles.description}>{description}</p>
+      {!!children && children}
+    </section>
+  );
 };
 
 export default EventContent;

@@ -6,7 +6,7 @@ import { SImage, Button, Calendar, Location, ArrowRight } from "../../atoms";
 import styles from "./EventoTemplate.module.sass";
 
 interface Props {
-  key: string;
+  key?: string;
   evento: DummyEventType;
 }
 

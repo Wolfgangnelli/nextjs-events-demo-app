@@ -1,19 +1,18 @@
-import React from 'react'
-import styles from './EventSummary.module.sass'
+import React from "react";
+import styles from "./EventSummary.module.sass";
 
 interface Props {
-    title: string
-    image?: string
+  title: string;
 }
 
 const EventSummary = (props: Props) => {
-    const { title, image } = props
+  const { title } = props;
 
   return (
-    <section>
-        <h1>{title}</h1>
+    <section className={styles.summarySection}>
+      <h1>{title}</h1>
     </section>
-  )
-}
+  );
+};
 
-export default EventSummary
+export default EventSummary;

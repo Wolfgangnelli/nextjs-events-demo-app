@@ -7,7 +7,7 @@ const HomePage = () => {
 
   return (
     <HomeTemplate>
-      <h1>The Home Page</h1>
+      <h1 className="homeTitle">The Home Page</h1>
       <ListingEventiTemplate events={featuredEvents} />
     </HomeTemplate>
   );
