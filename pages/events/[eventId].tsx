@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { getEventById } from "../../utils";
-import { DummyEventType } from "../../utils/types";
 import { AlertMessage } from "../../components/atoms";
 import {
   EventContent,

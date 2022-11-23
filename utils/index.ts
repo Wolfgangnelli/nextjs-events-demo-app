@@ -25,12 +25,20 @@ export function getEventById(id: string) {
   return DUMMY_EVENTS.find((event) => event.id === id);
 }
 
-export const humanReadableDate = (date: string) =>
-  new Date(date).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+export const humanReadableDate = (date: string, withDay: boolean = true) => {
+  if(withDay) {
+    return new Date(date).toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } else {
+    return  new Date(date).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    });
+  }
+}
 
 export const formattedAddress = (address: string) =>
   address.replace(", ", "\n");
