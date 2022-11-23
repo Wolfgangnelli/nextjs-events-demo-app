@@ -5,9 +5,17 @@ import { DummyEventType } from "../../utils/types";
 import { ListingEventiTemplate } from "../../components/templates";
 import { YEARS, MONTHS } from "../../dummy-data";
 import { FormSearchEvents } from "../../components/molecules";
+import fs from 'fs/promises'
+import path from 'path';
 
-const EventsPage = () => {
-  const events: DummyEventType[] = getAllEvents();
+interface Props {
+  events: DummyEventType[]
+}
+
+const EventsPage = (props: Props) => {
+  const { events } = props
+
+  //const allEvents: DummyEventType[] = getAllEvents();
 
   const router = useRouter();
 
@@ -31,5 +39,16 @@ const EventsPage = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json')
+
+  const jsonData = await fs.readFile(filePath, 'utf8');
+  const data = JSON.parse(jsonData)
+
+  return { props: {
+      events: data.events
+  } }
+}
 
 export default EventsPage;
