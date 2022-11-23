@@ -25,16 +25,16 @@ const FormSearchEvents = (props: Props) => {
   return (
     <Form className={styles.form} onSubmit={handleSubmit}>
       {!!years && (
-        <div>
+        <Form.Group>
           <Label label="Year" />
           <Select options={years} selectRef={yearRef} id="year" />
-        </div>
+        </Form.Group>
       )}
       {!!months && (
-        <>
+        <Form.Group>
           <Label label="Month" />
           <Select options={months} selectRef={monthRef} id="month" />
-        </>
+        </Form.Group>
       )}
       <Button label="Submit" type="submit" />
     </Form>

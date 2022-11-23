@@ -1,5 +1,5 @@
 export type DateFilterType = {
-  day: number;
+  day?: number;
   month: number;
   year: number;
 };
