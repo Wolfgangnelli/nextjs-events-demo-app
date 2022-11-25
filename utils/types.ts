@@ -17,7 +17,7 @@ export type DummyEventType = {
 export type NavItems = {
   id: string;
   label: string;
-  href?: string;
+  href: string;
   url?: string;
   icon?: string;
 };
