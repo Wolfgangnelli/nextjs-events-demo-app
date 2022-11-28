@@ -72,6 +72,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   const event = data.events.find((event: DummyEventType) => event.id === eventid)
 
+  if(!event) {
+    return { notFound: true }
+  }
+
   return {
     props: {
       event: event
