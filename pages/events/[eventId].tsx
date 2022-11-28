@@ -75,11 +75,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 export async function getStaticPaths() {
   return {
     paths: [
-      { params: { eventId:  'e1'} },
+      { params: { eventId: 'e1' } },
       { params: { eventId: 'e2' } },
-      { params: { eventId: 'e3' } },
     ],
-    fallback: false,
+    // We'll pre-render only these paths at build time.
+    // { fallback: false } means other routes should 404.
+    fallback: true,
+    // { fallback: true } useful if your app has a very large number of static pages that depending on data (e-commerce).
+    // You can generate a small subset of pages and use fallback: true for the rest. When someone requests a page that is not generated yet, the user will 
+    // see the page with a loading indicator
+    
   }
 }
 
