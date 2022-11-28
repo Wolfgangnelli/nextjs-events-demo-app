@@ -1,5 +1,7 @@
 import { DUMMY_EVENTS } from "../dummy-data";
 import { DateFilterType } from "./types";
+import path from 'path'
+import { promises as fs } from 'fs'
 
 export function getFeaturedEvents() {
   return DUMMY_EVENTS.filter((event) => event.isFeatured);
@@ -42,3 +44,4 @@ export const humanReadableDate = (date: string, withDay: boolean = true) => {
 
 export const formattedAddress = (address: string) =>
   address.replace(", ", "\n");
+
