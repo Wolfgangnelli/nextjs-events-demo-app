@@ -2,14 +2,16 @@ import React from 'react'
 import { GetServerSidePropsContext } from 'next'
 
 interface Props {
+    id: string
     username: string
 }
 
 const UserProfile = (props: Props) => {
-    const { username = '' } = props
+    const { id = '', username = '' } = props
+
   return (
     <div>
-        <p>{username}</p>
+        <p>{username} with id {id}</p>
     </div>
   )
 }
@@ -22,6 +24,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
         props: {
+            id: params?.userId,
             username: 'Max'
         }
     }
