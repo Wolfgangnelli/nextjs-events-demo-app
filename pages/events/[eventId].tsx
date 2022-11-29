@@ -60,6 +60,9 @@ async function getData() {
   return data;
 }
 
+// NB. Inside getStaticProps&Paths i don't have access to the actual request which is incoming.
+// Because these functions are not called for the actual request, at least not only.
+
 // Pre-render a page. We use to prepare the data for pre-rendering the page, then this happens on the server
 // Prepare a page on the server or during the build process with getStaticProps
 // This function is run before the component function runs. I prepare the data for the component
@@ -103,3 +106,7 @@ export async function getStaticPaths() {
 }
 
 export default EventDetailPage;
+
+
+// Server-side Rendering
+// Sometimes, you need to pre-render for every request OR you need access to the request obj (e.g. for cookies)
