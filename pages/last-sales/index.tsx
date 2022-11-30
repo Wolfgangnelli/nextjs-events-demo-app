@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { SalesType } from '../../utils/types'
 import { FIREBASE_DEFAULT_API, SALES } from '../../utils/endpoints'
+import useSWR from 'swr'
 
 const LastSales = () => {
   const [sales, setSales] = useState<SalesType[]>()
-  const [isLoading, setIsLoading] = useState(false)
+
+  const fetcher = (...args: any) => fetch(args).then(res => res.json())
+
+  const { data, error } = useSWR(`${FIREBASE_DEFAULT_API}/${SALES}`, fetcher)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetch(`${FIREBASE_DEFAULT_API}/${SALES}`
-    ).then(response => response.json()).then(data => {
+    if(data) {
       const transformedSales = []
 
       for (const key in data) {
@@ -21,21 +23,16 @@ const LastSales = () => {
       }
 
       setSales(transformedSales)
-      setIsLoading(false)
-    })
-  }, [])
+    }
+  }, [data])
 
-  if(isLoading) {
-    return <p>Loading...</p>
-  }
-
-  if(!sales) {
-    return <p>No data yet</p>
-  }
-
-  return !!sales && (
+  if(error) return <p>Fail to load</p>
+  
+  if(!data || !sales) return <p>Loading...</p>
+  
+  return (
     <ul>
-      {sales?.map(sale => <li key={sale.id}>{sale.username} - ${sale.volume}</li>)}
+      {sales?.map((sale: SalesType) => <li key={sale.id}>{sale.username} - ${sale.volume}</li>)}
     </ul>
   )
 }
