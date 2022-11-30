@@ -30,3 +30,9 @@ export type MonthOptions = {
 export type GenericObj = {
   [key: string]: string | number;
 };
+
+export type SalesType = {
+  id: string;
+  username: string;
+  volume: number;
+}
