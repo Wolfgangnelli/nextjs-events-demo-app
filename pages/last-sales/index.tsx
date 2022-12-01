@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { fetcher } from '../../utils'
 import { SalesType } from '../../utils/types'
 import { FIREBASE_DEFAULT_API, SALES } from '../../utils/endpoints'
 import useSWR from 'swr'
@@ -11,8 +12,6 @@ const LastSales = (props: Props) => {
   const { sales: salesInitialState = undefined } = props
 
   const [sales, setSales] = useState<SalesType[] | undefined>(salesInitialState)
-
-  const fetcher = (...args: any) => fetch(args).then(res => res.json())
 
   const { data, error } = useSWR(`${FIREBASE_DEFAULT_API}/${SALES}`, fetcher)
 
@@ -43,6 +42,7 @@ const LastSales = (props: Props) => {
   )
 }
 
+// the pre-rendered page contains pre-fetched data
 export async function getStaticProps() {
   // pre-fetching data
   const res = await fetch(`${FIREBASE_DEFAULT_API}/${SALES}`)

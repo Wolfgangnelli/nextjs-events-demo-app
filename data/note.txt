@@ -1,4 +1,6 @@
-Server-side Rendering:
+1. Static-site Generation (SSG)
+
+2. Server-side Rendering (SSR):
     - Sometimes, you need to pre-render for every requesst OR you need access to the request object (e.g. for cookies) 
       Next.js allows you to run "real server-side code as well" (it's really code that runs on the server only after you deployed it, 
       and which is then re-executed for every incoming request.)
@@ -6,10 +8,11 @@ Server-side Rendering:
     - NextJS will execute that function and it will execute it whenever a request for this page is made
     - YOU SHOULD ONLY USE EITHER getStaticProps OR getServerSideProps BECAUSE THEY KIND OF CLASH. (They get props for the component)
 
-Client-side Data Fetching
+3. Client-side rendering (CSR) - Data Fetching:
     - Some data doesn't need to be pre-rendered, examples:
-      1. Data changing with high frequency (e.g. stock data)
-      2. Highly user-specific data (e.g. last orders in an online shop) 
-      3. Partial data (e.g. data that's only used on a part of an page)
-Pre-fetching the data for page generation might not work or be required
---> "Traditional" client-side data fetching (e.g. useEffect with fetch is fine)
+      A. Data changing with high frequency (e.g. stock data)
+      B. Highly user-specific data (e.g. last orders in an online shop) 
+      C. Partial data (e.g. data that's only used on a part of an page)
+
+    Pre-fetching the data for page generation might not work or be required
+    --> "Traditional" client-side data fetching (e.g. useEffect with fetch is fine)
