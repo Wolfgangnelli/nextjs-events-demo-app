@@ -3,21 +3,22 @@ import axios, { isAxiosError } from 'axios'
 
 interface Props {
   url: string
-  params: any
+  params?: any
 }
 
 export const useFetch = (props: Props) => {
   const {url = "", params = {}} = props
 
-  const [data, setData] = useState()
+  const [data, setData] = useState({})
 
   useEffect(() => {
     (
       async () => {
         try {
-          const { data } = await axios.get(url, params)
+          const res = await axios.get(url, params)
 
-          if(data) {
+          if(res.status === 200) {
+            const { data } = res
             setData(data)
           }
         } catch (error) {
@@ -31,5 +32,5 @@ export const useFetch = (props: Props) => {
     )()
   }, [])
 
-  return data;
+  return { data };
 }
