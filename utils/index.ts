@@ -2,15 +2,15 @@ import { DateFilterType, DummyEventType } from "./types";
 import { FIREBASE_DEFAULT_API, EVENTS } from './endpoints'
 import axios from 'axios'
 
-export async function getAllEvents(): Promise<DummyEventType[] | undefined> {
+export const getAllEvents = async (): Promise<DummyEventType[] | any[]> => {
+  const events: DummyEventType[] | any[] = []
+
   try {
     const response = await axios.get(`${FIREBASE_DEFAULT_API}/${EVENTS}`)
-
+    
     if(response.status === 200) {
       const { data } = response
-
-      const events = []
-
+      
         for (const key in data) {
             events.push({
               id: key,
@@ -23,15 +23,18 @@ export async function getAllEvents(): Promise<DummyEventType[] | undefined> {
 
   } catch (error) {
     console.error(error)
+    throw new Error(`Error ${error}`);
   }
+  return events
 }
 
-export async function getFeaturedEvents(): Promise<DummyEventType[] | undefined> {
+export const getFeaturedEvents = async (): Promise<DummyEventType[] | any[]> => {
     const events = await getAllEvents()
-    if (!events) return undefined
+    
     if (events) return events.filter((event: DummyEventType) => event.isFeatured);
-}
 
+    return events
+}
 
 
 export function getFilteredEvents(dateFilter: DateFilterType, data: DummyEventType[]) {
@@ -46,8 +49,12 @@ export function getFilteredEvents(dateFilter: DateFilterType, data: DummyEventTy
   return filteredEvents;
 }
 
-export function getEventById(id: string, data: DummyEventType[]) {
-  return data.find((event) => event.id === id);
+export const getEventById = async (id: string | string[] | undefined): Promise<DummyEventType | undefined> => {
+  if(typeof id === 'string') {
+    const events = await getAllEvents()
+    if(events) return events.find((event) => event.id === id);
+  }
+  return;
 }
 
 export const humanReadableDate = (date: string, withDay: boolean = true) => {
