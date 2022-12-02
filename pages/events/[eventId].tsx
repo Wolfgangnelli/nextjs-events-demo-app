@@ -1,5 +1,5 @@
 import React from "react";
-import { getEventById, getAllEvents } from "../../utils";
+import { getEventById, getFeaturedEvents } from "../../utils";
 import {
   EventContent,
   EventSummary,
@@ -22,14 +22,12 @@ interface Props {
 const EventDetailPage = (props: Props) => {
   const { event } = props
 
-/*   const {
-    query: { eventId },
-  } = useRouter();
-
-  const event = typeof eventId === "string" && getEventById(eventId); */
-
   if (!event) {
-    return <p>Loading...</p>
+    return (
+      <div className="center">
+        <p>Loading...</p>
+      </div>
+    )
    // return <AlertMessage message="No event found!" variant="info" />
   }
 
@@ -68,21 +66,22 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       event: event
-    }
+    },
+    revalidate: 30
   }
 }
 
 // Tell Next.js which concrete instances of this dynamic page should be generated
 export async function getStaticPaths() {
   
-  const events = await getAllEvents()
+  const events = await getFeaturedEvents()
   const pathsWithParams = events.map((event: DummyEventType) => ({  params: { eventId: event.id }}))
 
   return {
     paths: pathsWithParams,
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404. If i specify all possible paths
-    fallback: false,
+    fallback: 'blocking',
     // { fallback: true } useful if your app has a very large number of static pages that depending on data (e-commerce).
     // You can generate a small subset of pages and use fallback: true for the rest. When someone requests a page that is not generated yet, the user will 
     // see the page with a loading indicator
