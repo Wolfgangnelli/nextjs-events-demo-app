@@ -1,9 +1,14 @@
 import React from "react";
 import { HomeTemplate, ListingEventiTemplate } from "../components/templates";
 import { getFeaturedEvents } from "../utils";
+import { DummyEventType } from '../utils/types'
 
-const HomePage = () => {
-  const featuredEvents = getFeaturedEvents();
+interface Props {
+  featuredEvents: DummyEventType[]
+}
+
+const HomePage = (props: Props) => {
+  const { featuredEvents } = props
 
   return (
     <HomeTemplate>
@@ -12,5 +17,24 @@ const HomePage = () => {
     </HomeTemplate>
   );
 };
+
+export async function getStaticProps() {
+  const featuredEvents = await getFeaturedEvents()
+
+  if(!featuredEvents) {
+    return {
+      props: {
+        notFound: true
+      }
+    }
+  }
+
+  return {
+    props: {
+      featuredEvents: featuredEvents
+    },
+    revalidate: 10
+  }
+}
 
 export default HomePage;
