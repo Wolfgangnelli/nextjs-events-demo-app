@@ -1,10 +1,10 @@
 import React from "react";
 import { HomeTemplate, ListingEventiTemplate } from "../components/templates";
 import { getFeaturedEvents } from "../utils";
-import { DummyEventType } from '../utils/types'
+import { EventType } from '../utils/types'
 
 interface Props {
-  featuredEvents: DummyEventType[]
+  featuredEvents: EventType[]
 }
 
 const HomePage = (props: Props) => {

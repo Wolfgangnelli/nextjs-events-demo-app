@@ -4,7 +4,7 @@ export type DateFilterType = {
   year: number;
 };
 
-export type DummyEventType = {
+export type EventType = {
   id: string;
   title: string;
   description: string;
@@ -35,4 +35,13 @@ export type SalesType = {
   id: string;
   username: string;
   volume: number;
+}
+
+export type RedirectPropsType = {
+  destination: string
+}
+
+export type DatePropsType = {
+  year: number
+  month: number
 }
