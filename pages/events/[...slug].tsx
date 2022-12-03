@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router'
 import { GetServerSidePropsContext } from 'next'
-import { getFilteredEvents } from '../../utils'
+import { getFilteredEvents, fetcher } from '../../utils'
+import { FIREBASE_DEFAULT_API, EVENTS } from '../../utils/endpoints'
 import { RedirectPropsType, EventType, DatePropsType } from '../../utils/types'
 import { ListingEventiTemplate } from '../../components/templates'
 import { ResultsTitle } from '../../components/molecules'
 import { Button, AlertMessage } from '../../components/atoms'
+import useSWR from 'swr'
 
 interface Props {
   events: EventType[] | []
@@ -16,7 +18,27 @@ interface Props {
 }
 
 const FilteredEventsPage = (props: Props) => {
-  const { events = [], hasError = false, date = undefined } = props
+  const { events: filteredEvents = [], hasError = false, date = undefined } = props
+
+  const [events, setEvents] = useState(filteredEvents)
+
+  const { query } = useRouter()
+  const { data, error } = useSWR(`${FIREBASE_DEFAULT_API}/${EVENTS}`, fetcher)
+
+  useEffect(() => {
+    if(data) {
+      const date = query.slug;
+
+      const filteredYear = date?.[0]
+      const filteredMonth = date?.[1]
+
+      const numYear = typeof filteredYear !== 'undefined' ? +filteredYear : 0
+      const numMonth = typeof filteredMonth !== 'undefined' ? +filteredMonth : 0
+
+
+      //const eventsFiltered = await getFilteredEvents()
+    }
+  }, [data])
 
   if(hasError) {
     return (
