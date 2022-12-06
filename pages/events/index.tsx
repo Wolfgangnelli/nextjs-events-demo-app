@@ -7,6 +7,7 @@ import { ListingEventiTemplate } from "../../components/templates";
 import { YEARS, MONTHS } from "../../dummy-data";
 import { FormSearchEvents } from "../../components/molecules";
 import useSWR from "swr";
+import Head from "next/head";
 
 interface Props {
   events: EventType[];
@@ -56,6 +57,10 @@ const EventsPage = (props: Props) => {
 
   return (
     <div>
+      <Head>
+        <title>All Events</title>
+        <meta name="description" content="All events" />
+      </Head>
       <h1 className="center">The Events Page</h1>
       <FormSearchEvents months={MONTHS} years={YEARS} onSearch={onSearch} />
       <div className="events-container">
