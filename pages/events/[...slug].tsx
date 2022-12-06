@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
 import { getFilteredEvents, fetcher } from "../../utils";
 import { FIREBASE_DEFAULT_API, EVENTS } from "../../utils/endpoints";
 import { RedirectPropsType, EventType, DatePropsType } from "../../utils/types";
@@ -8,6 +7,7 @@ import { ListingEventiTemplate } from "../../components/templates";
 import { ResultsTitle } from "../../components/molecules";
 import { Button, AlertMessage } from "../../components/atoms";
 import useSWR from "swr";
+import Head from "next/head";
 
 interface Props {
   events: EventType[] | [];
@@ -44,8 +44,20 @@ const FilteredEventsPage = (props: Props) => {
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content="A list of filtered events." />
+    </Head>
+  )
+
   if (!loadedEvents) {
-    return <p className="center">Loading...</p>;
+    return (
+        <> 
+        {pageHeadData} 
+        <p className="center">Loading...</p>  
+        </>
+      );
   }
 
   const filteredYear = query.slug?.[0];
@@ -53,6 +65,13 @@ const FilteredEventsPage = (props: Props) => {
 
   const numYear = typeof filteredYear !== "undefined" ? +filteredYear : 0;
   const numMonth = typeof filteredMonth !== "undefined" ? +filteredMonth : 0;
+
+  pageHeadData = (
+    <Head>
+    <title>Filtered Events</title>
+    <meta name="description" content={`All events for ${numMonth}/${numYear}`} />
+  </Head>
+  )
 
   if (
     isNaN(numYear) ||
@@ -65,6 +84,7 @@ const FilteredEventsPage = (props: Props) => {
   ) {
     return (
       <>
+      {pageHeadData}
         <AlertMessage
           message="Invalid filter. Please adjust your values!"
           variant="info"
@@ -84,6 +104,7 @@ const FilteredEventsPage = (props: Props) => {
   if (!eventsFiltered || eventsFiltered.length === 0) {
     return (
       <>
+      {pageHeadData}
         <AlertMessage
           message="No events found for the chosen filter!"
           variant="info"
@@ -99,6 +120,7 @@ const FilteredEventsPage = (props: Props) => {
 
   return (
     <>
+      {pageHeadData}
       {formatDate && <ResultsTitle date={formatDate} />}
       <ListingEventiTemplate events={eventsFiltered} />
     </>

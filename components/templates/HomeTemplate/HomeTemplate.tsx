@@ -1,10 +1,18 @@
 import React from "react";
-import Page from "../Layout/Layout";
+import Head from 'next/head'
 
 const HomeTemplate = (props: any) => {
   const { children } = props;
 
-  return <div>{children}</div>;
+  return (
+  <div>
+    <Head>
+      <title>NextJS Events</title>
+      <meta name="description" content="Find a lot of great events that allow you to evolve" />
+    </Head>
+    {children}
+  </div>
+  );
 };
 
 export default HomeTemplate;
