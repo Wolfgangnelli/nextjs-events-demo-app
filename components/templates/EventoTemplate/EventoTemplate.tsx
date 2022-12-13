@@ -1,13 +1,12 @@
 import React from "react";
-import Link from "next/link";
-import { DummyEventType } from "../../../utils/types";
+import { EventType } from "../../../utils/types";
 import { humanReadableDate, formattedAddress } from "../../../utils";
 import { SImage, Button, Calendar, Location, ArrowRight } from "../../atoms";
 import styles from "./EventoTemplate.module.sass";
 
 interface Props {
   key?: string;
-  evento: DummyEventType;
+  evento: EventType;
 }
 
 const EventoTemplate = (props: Props) => {
