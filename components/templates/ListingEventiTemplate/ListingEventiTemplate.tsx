@@ -1,10 +1,10 @@
 import React from "react";
-import { DummyEventType } from "../../../utils/types";
+import { EventType } from "../../../utils/types";
 import { EventoTemplate } from "../index";
 import styles from "./ListingEventiTemplate.module.sass";
 
 interface Props {
-  events: DummyEventType[];
+  events: EventType[];
 }
 
 const ListingEventiTemplate = (props: Props) => {
