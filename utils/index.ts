@@ -1,6 +1,8 @@
 import { DateFilterType, EventType } from "./types";
 import { FIREBASE_DEFAULT_API, EVENTS } from "./endpoints";
 import axios from "axios";
+import path from 'path';
+import fs from 'fs';
 
 export const getAllEvents = async (): Promise<EventType[] | any[]> => {
   const events: EventType[] | any[] = [];
@@ -92,3 +94,14 @@ export const formattedAddress = (address: string): string =>
 
 export const fetcher = (...args: any): Promise<any> =>
   fetch(args).then((res) => res.json());
+
+
+export const buildFeedbackPath = () => {
+  return path.join(process.cwd(), 'data', 'feedback.json')
+}
+
+export const extractFeedback = (filePath: string) => {
+  const fileData = fs.readFileSync(filePath, 'utf8')
+  const data = JSON.parse(fileData)
+  return data;
+}
